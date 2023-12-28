@@ -57,16 +57,8 @@ const productsGet = async (): Promise<ProductType[]> => {
 
 const productCreate = async (args: { input: ProductCreateInput }): Promise<ProductType> => {
     const newProduct = await AppDataSource.getRepository(Product).create(args.input);
-    const savedProduct = await AppDataSource.getRepository(Product).save(newProduct);
+    return await AppDataSource.getRepository(Product).save(newProduct);
   
-    return {
-      id: savedProduct.id,
-      name: savedProduct.name,
-      description: savedProduct.description,
-      unitofmeasure: savedProduct.unitofmeasure,
-      price: savedProduct.price,
-      stock: savedProduct.stock,
-    };
   };
 
   const productUpdate = async (args: { id: number; input: ProductUpdateInput }): Promise<ProductType | null> => {

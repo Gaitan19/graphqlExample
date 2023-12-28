@@ -1,8 +1,8 @@
 
 export const invoicesSchema = `#graphql
     input InvoiceCreateInput {
-        sellerName: String!
-        customerName: String!
+        sellerId: Int!
+        customerId: Int!
         date: String!
         total: Float!    
     }
@@ -16,8 +16,8 @@ export const invoicesSchema = `#graphql
 
    type Invoice {
     id: Int!
-    sellerName: String!
-    customerName: String!
+    sellerId: Int!
+    customerId: Int!
     date: String!
     total: Float!
   }
