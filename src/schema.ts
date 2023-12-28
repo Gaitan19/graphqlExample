@@ -1,6 +1,5 @@
 import { buildSchema } from "graphql";
-import { productSchema } from './schemas/product.schema'
-import { otherSchema } from './schemas/other.schema'
+import { productSchema } from './schemas/productSchema'
 
 //const schema = buildSchema(`${productSchema} ${otherSchema}`)
 
