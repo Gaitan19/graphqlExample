@@ -1,79 +1,83 @@
-import pets from "./database";
-import { randomUUID } from "crypto";
 import {
-    getPet,
-    getPets,
-    getPets2,
-    createPet,
-    updatePet,
-    deletePet,
-} from './resolvers/productResolver'
+    getCustomer,
+    getCustomers,
+    createCustomer,
+    updateCustomer,
+    deleteCustomer,
+} from "./resolvers/customerResolver"
 
-// type Pet = {
-//     id: string;
-//     name: string;
-//     age: number;
-//     pictureUri: string;
-//     ownerName: string;
-// };
 
-// const getPet = (args: { id: string }): Pet | undefined => {
-//     return pets.find((pet) => pet.id === args.id);
-// };
+import {
 
-// const getPets = (): Pet[] => {
-//     return pets;
-// };
+    getInvoiceDetail,
+    getInvoiceDetails,
+    createInvoiceDetail,
+    updateInvoiceDetail,
+    deleteInvoiceDetail,
 
-// const createPet = (args: {
-//     name: string;
-//     age: number;
-//     pictureUri: string;
-//     ownerName: string;
-// }): Pet => {
-//     // generate randon uuid for pet object
-//     const generatedId = randomUUID().toString();
-//     // create pet object and save
-//     const pet = { id: generatedId, ...args };
-//     pets.push(pet);
-//     return pet;
-// };
 
-// const updatePet = (args: {
-//     id: string;
-//     name?: string;
-//     age?: number;
-//     pictureUri?: string;
-//     ownerName?: string;
-// }): Pet => {
-//     // loop through pets array and get object of pet
-//     console.log(">>", args, pets);
-//     const index = pets.findIndex((pet) => pet.id === args.id);
-//     const pet = pets[index];
 
-//     // update field if it is passed as an argument
-//     if (args.age) pet.age = args.age;
-//     if (args.name) pet.name = args.name;
-//     if (args.pictureUri) pet.pictureUri = args.pictureUri;
+} from "./resolvers/invoiceDetailsResolver"
 
-//     return pet;
-// };
+import {
 
-// const deletePet = (args: { id: string }): string => {
-//     // loop through pets array and delete pet with id
-//     const index = pets.findIndex((pet) => pet.id === args.id);
-//     if (index !== -1) {
-//         pets.splice(index, 1);
-//     }
+    getInvoice,
+    getInvoices,
+    createInvoice,
+    updateInvoice,
+    deleteInvoice,
 
-//     return args.id;
-// };
+
+
+} from "./resolvers/invoiceResolver"
+
+import {
+    getProduct,
+    getProducts,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+
+
+
+
+} from "./resolvers/productResolver"
+
+
+import {
+    getSeller,
+    getSellers,
+    createSeller,
+    updateSeller,
+    deleteSeller,
+} from "./resolvers/sellerResolver"
+
+
 
 export const root = {
-    getPet,
-    getPets,
-    getPets2,
-    createPet,
-    updatePet,
-    deletePet,
+    getCustomer,
+    getCustomers,
+    createCustomer,
+    updateCustomer,
+    deleteCustomer,
+    getInvoiceDetail,
+    getInvoiceDetails,
+    createInvoiceDetail,
+    updateInvoiceDetail,
+    deleteInvoiceDetail,
+    getInvoice,
+    getInvoices,
+    createInvoice,
+    updateInvoice,
+    deleteInvoice,
+    getProduct,
+    getProducts,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    getSeller,
+    getSellers,
+    createSeller,
+    updateSeller,
+    deleteSeller,
 };
