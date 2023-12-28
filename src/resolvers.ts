@@ -7,7 +7,7 @@ import {
     createPet,
     updatePet,
     deletePet,
-} from './resolvers/product.resolver'
+} from './resolvers/productResolver'
 
 // type Pet = {
 //     id: string;
