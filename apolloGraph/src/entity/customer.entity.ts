@@ -24,8 +24,6 @@ export class Customer {
   @Column()
   phone: number;
 
-  @DeleteDateColumn()
-  deletedAt: Date;
 
   @OneToMany(() => Invoice, (invoice) => invoice.customer)
   invoice: Invoice[];

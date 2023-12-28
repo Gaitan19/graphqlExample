@@ -1,21 +1,31 @@
-import { buildSchema } from "graphql";
 
-export const sellerSchema = buildSchema(`
+export const sellerSchema = `#graphql
+
+input SellerCreateInput{
+    name: String!
+    lastName: String!
+}
+
+input SellerUpdateInput{
+    name: String
+    lastName: String
+}
+
 type Seller {
- id: ID!
+ id: Int!
  name: String!
  lastName: String!
 }
 
 type Query {
-     getSellers: [Seller]
-     getSeller(id: ID!): Seller
+     sellersGet: [Seller]
+     sellerGetById(id: Int!): Seller
  }
 
 type Mutation {
-     createSeller(name: String, lastName: String): Seller!
-     updateSeller(id: ID!,name: String, lastName: String): Seller!
-     deleteSeller(id: ID!): ID!
+     sellerCreate(input:SellerCreateInput!): Seller!
+     sellerUpdate(id:Int!,input: SellerUpdateInput!): Seller!
+     sellerDelete(id: Int!): Int!
  }
-`);
+`;
 

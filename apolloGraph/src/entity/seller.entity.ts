@@ -18,8 +18,7 @@ export class Seller {
   @Column()
   lastName: string;
 
-  @DeleteDateColumn()
-  deletedAt: Date;
+  
 
   @OneToMany(() => Invoice, (invoice) => invoice.seller)
   invoice: Invoice[];

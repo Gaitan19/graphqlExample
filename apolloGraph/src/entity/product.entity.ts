@@ -37,6 +37,5 @@ export class Product {
   @OneToMany(() => InvoiceDetail, (invoiceDetail) => invoiceDetail.product)
   invoiceDetails: InvoiceDetail[];
 
-  @DeleteDateColumn()
-  deletedAt: Date;
+
 }
