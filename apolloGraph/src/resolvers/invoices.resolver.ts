@@ -3,22 +3,16 @@ import { Invoice } from "../entity/invoice.entity";
 
 type InvoiceType = {
     id: number;
-    sellerName: string;
-    customerName: string;
     date: Date;
     total: number;
 };
 
 type InvoiceCreateInput = {
-    sellerName: string;
-    customerName: string;
     date: string;
     total: number;
 }
 
 type InvoiceUpdateInput = {
-    sellerName?: string;
-    customerName?: string;
     date?: string;
     total?: number;
 }

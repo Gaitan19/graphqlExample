@@ -2,22 +2,25 @@ import {
   Column,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ColumnNumericTransformer } from '../utils/columnNumericTransformer';
-import { Seller } from './seller.entity';
-import { Customer } from './customer.entity';
 import { InvoiceDetail } from './invoiceDetail.entity';
 
 @Entity()
-export class Invoice {
+export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  date: Date;
+  name: string;
+
+  @Column()
+  description: string;
+
+  @Column()
+  unitofmeasure: string;
 
   @Column({
     type: 'decimal',
@@ -26,15 +29,12 @@ export class Invoice {
     default: 0,
     transformer: new ColumnNumericTransformer(),
   })
-  total: number;
+  price: number;
 
-  @ManyToOne(() => Seller, (seller) => seller.invoice)
-  seller: Seller;
+  @Column()
+  stock: number;
 
-  @ManyToOne(() => Customer, (customer) => customer.invoice)
-  customer: Customer;
-
-  @OneToMany(() => InvoiceDetail, (invoiceDetail) => invoiceDetail.invoice)
+  @OneToMany(() => InvoiceDetail, (invoiceDetail) => invoiceDetail.product)
   invoiceDetails: InvoiceDetail[];
 
   @DeleteDateColumn()
