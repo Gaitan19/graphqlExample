@@ -28,7 +28,7 @@ type InvoiceDetailUpdateInput = {
 const invoiceDetailGetById = async (args: { id: number }): Promise<InvoiceDetailType | undefined> => {
   const invoiceDetail = await AppDataSource.getRepository(InvoiceDetail).findOne( {
     where: {id: args.id},
-    relations: ["product", "invoice","invoice.customer","invoice.customer"],
+    relations: ["product", "invoice","invoice.seller","invoice.customer"],
   });
 
   if (invoiceDetail) {
@@ -40,7 +40,7 @@ const invoiceDetailGetById = async (args: { id: number }): Promise<InvoiceDetail
 
 const invoiceDetailsGet = async (): Promise<InvoiceDetailType[]> => {
   const invoiceDetails = await AppDataSource.getRepository(InvoiceDetail).find({
-    relations: ["product", "invoice","invoice.customer","invoice.customer"],
+    relations: ["product", "invoice","invoice.seller","invoice.customer"],
   });
 
 
@@ -71,7 +71,7 @@ const invoiceDetailUpdate = async (
   const invoiceDetailRepository = AppDataSource.getRepository(InvoiceDetail);
   const invoiceDetail = await invoiceDetailRepository.findOne( {
     where: {id:args.id},
-    relations: ["product", "invoice","invoice.customer","invoice.customer"],
+    relations: ["product", "invoice","invoice.seller","invoice.customer"],
   });
 
   if (invoiceDetail) {
