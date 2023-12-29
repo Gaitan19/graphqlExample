@@ -9,13 +9,13 @@ import { InvoiceDetail } from "./entity/invoiceDetail.entity"
 export const AppDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
-    port: 3306,
+    port: 3307,
     username: "root",
     password: "admin",
     database: "graphdb",
     synchronize: true,
     logging: false,
-    entities: [Invoice,Customer,Seller,Product,InvoiceDetail],
+    entities: [Invoice, Customer, Seller, Product, InvoiceDetail],
     migrations: [],
     subscribers: [],
 })
