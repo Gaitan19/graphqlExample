@@ -48,15 +48,8 @@ const customersGet = async (): Promise<CustomerType[]> => {
 
 const customerCreate = async (args: { input: CustomerCreateInput }): Promise<CustomerType> => {
     const newCustomer = await AppDataSource.getRepository(Customer).create(args.input);
-    const savedCustomer = await AppDataSource.getRepository(Customer).save(newCustomer);
+    return await AppDataSource.getRepository(Customer).save(newCustomer);
   
-    return {
-        id: savedCustomer.id,
-        name: savedCustomer.name,
-        lastName:savedCustomer.lastName,
-        address:savedCustomer.address,
-        phone:savedCustomer.phone
-    };
   };
 
   const customerUpdate = async (args: { id: number; input: CustomerUpdateInput }): Promise<CustomerType | null> => {
@@ -71,16 +64,9 @@ const customerCreate = async (args: { input: CustomerCreateInput }): Promise<Cus
     if (args.input.address) customer.address = args.input.address;
     if (args.input.phone) customer.phone = args.input.phone;
 
-    const updatedCustomer = await customerRepository.save(customer);
+    return await customerRepository.save(customer);
   
-      return {
-        id: updatedCustomer.id,
-        name: updatedCustomer.name,
-        lastName:updatedCustomer.lastName,
-        address:updatedCustomer.address,
-        phone:updatedCustomer.phone
-      };
-    // return updatedCustomer
+      
     }
   
     return null;

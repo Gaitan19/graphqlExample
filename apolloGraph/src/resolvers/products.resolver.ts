@@ -32,17 +32,10 @@ const productGetById = async (args: { id: number }): Promise<ProductType | undef
     const product = await AppDataSource.getRepository(Product).findOne({where: {id:args.id}});
   
     if (product) {
-      return {
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        unitofmeasure: product.unitofmeasure,
-        price: product.price,
-        stock: product.stock,
-      };
+      return product
     }
   
-    return product;
+    return null;
   };
   
 
@@ -74,16 +67,9 @@ const productCreate = async (args: { input: ProductCreateInput }): Promise<Produ
     if (args.input.price) product.price = args.input.price;
     if (args.input.stock) product.stock = args.input.stock;
 
-    const updatedProduct = await productRepository.save(product);
+    return await productRepository.save(product);
   
-      return {
-        id: updatedProduct.id,
-        name: updatedProduct.name,
-        description: updatedProduct.description,
-        unitofmeasure: updatedProduct.unitofmeasure,
-        price: updatedProduct.price,
-        stock: updatedProduct.stock,
-      };
+     
     }
   
     return null;

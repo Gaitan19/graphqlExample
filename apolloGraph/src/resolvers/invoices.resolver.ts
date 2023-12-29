@@ -29,13 +29,7 @@ const invoiceGetById = async (args: { id: number }): Promise<InvoiceType | undef
     const invoice = await AppDataSource.getRepository(Invoice).findOne({ where: { id: args.id }, relations: ["seller", "customer"] });
 
     if (invoice) {
-        return {
-            id: invoice.id,
-            seller: invoice.seller,
-            customer: invoice.customer,
-            date: invoice.date,
-            total: invoice.total,
-        };
+        return invoice
     }
 
     return undefined;
@@ -85,15 +79,9 @@ const invoiceUpdate = async (args: { id: number; input: InvoiceUpdateInput }): P
         if (date !== undefined) invoice.date = new Date(date);
         if (total !== undefined) invoice.total = total;
 
-        const updatedInvoice = await invoiceRepository.save(invoice);
+        return await invoiceRepository.save(invoice);
 
-        return {
-            id: updatedInvoice.id,
-            seller: updatedInvoice.seller,
-            customer: updatedInvoice.customer,
-            date: updatedInvoice.date,
-            total: updatedInvoice.total,
-        };
+        
     }
 
     return null;

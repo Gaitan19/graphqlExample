@@ -32,13 +32,7 @@ const invoiceDetailGetById = async (args: { id: number }): Promise<InvoiceDetail
   });
 
   if (invoiceDetail) {
-    return {
-      id: invoiceDetail.id,
-      quantity: invoiceDetail.quantity,
-      price: invoiceDetail.price,
-      product: invoiceDetail.product,
-      invoice: invoiceDetail.invoice,
-    };
+    return invoiceDetail
   }
 
   return undefined;
@@ -94,15 +88,9 @@ const invoiceDetailUpdate = async (
       if (invoice) invoiceDetail.invoice = invoice;
     }
 
-    const updatedInvoiceDetail = await invoiceDetailRepository.save(invoiceDetail);
+    return  await invoiceDetailRepository.save(invoiceDetail);
 
-    return {
-      id: updatedInvoiceDetail.id,
-      quantity: updatedInvoiceDetail.quantity,
-      price: updatedInvoiceDetail.price,
-      product: updatedInvoiceDetail.product,
-      invoice: updatedInvoiceDetail.invoice,
-    };
+    
   }
 
   return null;

@@ -45,16 +45,9 @@ const sellersGet = async (): Promise<SellerType[]> => {
 
 const sellerCreate = async (args: { input: SellerCreateInput }): Promise<SellerType> => {
     const newSeller = await AppDataSource.getRepository(Seller).create(args.input);
-    const savedSeller = await AppDataSource.getRepository(Seller).save(newSeller);
+    return await AppDataSource.getRepository(Seller).save(newSeller);
   
-    // return {
-    //     id: savedSeller.id,
-    //     name: savedSeller.name,
-    //     lastName:savedSeller.lastName,
-    //     address:savedSeller.address,
-    //     phone:savedSeller.phone
-    // };
-    return savedSeller;
+    
   };
 
   const sellerUpdate = async (args: { id: number; input: SellerUpdateInput }): Promise<SellerType | null> => {
@@ -67,14 +60,8 @@ const sellerCreate = async (args: { input: SellerCreateInput }): Promise<SellerT
     if (args.input.name) seller.name = args.input.name;
     if (args.input.lastName) seller.lastName = args.input.lastName;
 
-    const updatedSeller = await sellerRepository.save(seller);
+    return await sellerRepository.save(seller);
   
-      return {
-        id: updatedSeller.id,
-        name: updatedSeller.name,
-        lastName:updatedSeller.lastName,
-      };
-    // return updatedCustomer
     }
   
     return null;
