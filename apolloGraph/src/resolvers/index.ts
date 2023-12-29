@@ -1,3 +1,4 @@
+import { invoiceDetailsResolvers } from './invoicesDetails.resolver';
 import { sellersResolvers } from './sellers.resolver';
 import { customersResolvers } from './customer.resolver';
 import { productsResolvers } from './products.resolver';
@@ -8,5 +9,6 @@ export const mergedResolvers = mergeResolvers({
     ...invoicesResolvers,
     ...productsResolvers,
     ...customersResolvers,
-    ...sellersResolvers
+    ...sellersResolvers,
+    ...invoiceDetailsResolvers
 })

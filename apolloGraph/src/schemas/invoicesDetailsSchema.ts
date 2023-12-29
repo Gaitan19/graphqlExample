@@ -1,23 +1,38 @@
-import { buildSchema } from "graphql";
 
-export const invoiceDetailsSchema = buildSchema(`
-type InvoiceDetails {
+export const invoiceDetailsSchema = `#graphql
+
+
+input InvoiceDetailCreateInput{
+    invoiceId: Int!
+    productId: Int!
+    quantity: Int!
+    price: Float! 
+}
+
+input InvoiceDetailUpdateInput {
+    invoiceId: Int
+    productId: Int
+    quantity: Int
+    price: Float
+}
+
+type InvoiceDetail {
  id: ID!
- invoiceId: Int!
- productId: Int!
+ invoice: Invoice!
+ product: Product!
  quantity: Int!
- price: Int!
+ price: Float!
 }
 
 type Query {
-     getInvoiceDetailss: [InvoiceDetails]
-     getInvoiceDetails(id: ID!): InvoiceDetails
+     invoiceDetailsGet: [InvoiceDetail]
+     invoiceDetailGetById(id: Int!): InvoiceDetail
  }
 
 type Mutation {
-     createInvoiceDetails(invoiceId: Int, productId: Int, quantity: Int, price: Int): InvoiceDetails!
-     updateInvoiceDetails(id: ID!,invoiceId: Int, productId: Int, quantity: Int, price: Int): InvoiceDetails!
-     deleteInvoiceDetails(id: ID!): ID!
+     invoiceDetailCreate(input: InvoiceDetailCreateInput!): InvoiceDetail!
+     invoiceDetailUpdate(id: Int!,input: InvoiceDetailUpdateInput!): InvoiceDetail!
+     invoiceDetailDelete(id: Int!): Int!
  }
-`);
+`;
 

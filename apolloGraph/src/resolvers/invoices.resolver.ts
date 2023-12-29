@@ -44,13 +44,8 @@ const invoiceGetById = async (args: { id: number }): Promise<InvoiceType | undef
 const invoicesGet = async (): Promise<InvoiceType[]> => {
     const invoices = await AppDataSource.getRepository(Invoice).find({ relations: ["seller", "customer"] });
 
-    return invoices.map((invoice) => ({
-        id: invoice.id,
-        seller: invoice.seller,
-        customer: invoice.customer,
-        date: invoice.date,
-        total: invoice.total,
-    }));
+    
+    return invoices;
 };
 
 const invoiceCreate = async (args: { input: InvoiceCreateInput }): Promise<InvoiceType> => {
@@ -75,10 +70,8 @@ const invoiceUpdate = async (args: { id: number; input: InvoiceUpdateInput }): P
     const invoice = await invoiceRepository.findOne({ where: { id: args.id }, relations: ["seller", "customer"] });
 
     if (invoice) {
-        // Destructuring para obtener solo los campos que se proporcionan
         const { sellerId, customerId, date, total } = args.input;
 
-        // Actualiza solo los campos que se proporcionan en input
         if (sellerId !== undefined) {
             const seller = await AppDataSource.getRepository(Seller).findOne({ where: { id: sellerId } });
             if (seller) invoice.seller = seller;
@@ -92,7 +85,6 @@ const invoiceUpdate = async (args: { id: number; input: InvoiceUpdateInput }): P
         if (date !== undefined) invoice.date = new Date(date);
         if (total !== undefined) invoice.total = total;
 
-        // Guarda el producto actualizado
         const updatedInvoice = await invoiceRepository.save(invoice);
 
         return {
