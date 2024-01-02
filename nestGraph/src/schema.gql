@@ -2,15 +2,73 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateCustomerInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateInvoiceDetailInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateInvoiceInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateProductInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
+input CreateSellerInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Customer {
+  address: String!
+  exampleField: Int!
+  invoice: Invoice!
+  lastName: String!
+  name: String!
+  phone: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Invoice {
+  date: DateTime!
+  exampleField: Int!
+  total: Float!
+}
+
+type InvoiceDetail {
+  exampleField: Int!
+  price: Float!
+  quantity: Float!
+}
+
 type Mutation {
+  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  createInvoice(createInvoiceInput: CreateInvoiceInput!): Invoice!
+  createInvoiceDetail(createInvoiceDetailInput: CreateInvoiceDetailInput!): InvoiceDetail!
   createProduct(createProductInput: CreateProductInput!): Product!
+  createSeller(createSellerInput: CreateSellerInput!): Seller!
+  removeCustomer(id: Int!): Customer!
+  removeInvoice(id: Int!): Invoice!
+  removeInvoiceDetail(id: Int!): InvoiceDetail!
   removeProduct(id: Int!): Product!
+  removeSeller(id: Int!): Seller!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
+  updateInvoice(updateInvoiceInput: UpdateInvoiceInput!): Invoice!
+  updateInvoiceDetail(updateInvoiceDetailInput: UpdateInvoiceDetailInput!): InvoiceDetail!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
+  updateSeller(updateSellerInput: UpdateSellerInput!): Seller!
 }
 
 type Product {
@@ -23,11 +81,49 @@ type Product {
 }
 
 type Query {
+  customer(id: Int!): Customer!
+  customers: [Customer!]!
+  invoice(id: Int!): Invoice!
+  invoiceDetail(id: Int!): InvoiceDetail!
+  invoiceDetails: [InvoiceDetail!]!
+  invoices: [Invoice!]!
   product(id: Int!): Product!
   products: [Product!]!
+  seller(id: Int!): Seller!
+  sellers: [Seller!]!
+}
+
+type Seller {
+  exampleField: Int!
+  lastName: String!
+  name: String!
+}
+
+input UpdateCustomerInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateInvoiceDetailInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateInvoiceInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateProductInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateSellerInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
