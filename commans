@@ -1,0 +1,9 @@
+comandos:
+
+--comandos para usar mysql con docker
+
+docker volume create mysql-db-data
+
+docker volume ls
+
+docker run -d -p 3307:3306 --name mysql-db  -e MYSQL_ROOT_PASSWORD=admin --mount src=mysql-db-data,dst=/var/lib/mysql mysql
