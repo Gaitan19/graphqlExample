@@ -3,8 +3,10 @@
 # ------------------------------------------------------
 
 input CreateCustomerInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  address: String!
+  lastName: String!
+  name: String!
+  phone: Int!
 }
 
 input CreateInvoiceDetailInput {
@@ -32,7 +34,7 @@ input CreateSellerInput {
 
 type Customer {
   address: String!
-  exampleField: Int!
+  id: Int!
   invoice: Invoice!
   lastName: String!
   name: String!
@@ -62,7 +64,7 @@ type Mutation {
   createInvoiceDetail(createInvoiceDetailInput: CreateInvoiceDetailInput!): InvoiceDetail!
   createProduct(createProductInput: CreateProductInput!): Product!
   createSeller(createSellerInput: CreateSellerInput!): Seller!
-  removeCustomer(id: Int!): Customer!
+  removeCustomer(id: Int!): String!
   removeInvoice(id: Int!): Invoice!
   removeInvoiceDetail(id: Int!): InvoiceDetail!
   removeProduct(id: Int!): String!
@@ -103,9 +105,11 @@ type Seller {
 }
 
 input UpdateCustomerInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  address: String
   id: Int!
+  lastName: String
+  name: String
+  phone: Int
 }
 
 input UpdateInvoiceDetailInput {

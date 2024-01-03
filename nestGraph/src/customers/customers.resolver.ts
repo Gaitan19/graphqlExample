@@ -6,10 +6,12 @@ import { UpdateCustomerInput } from './dto/update-customer.input';
 
 @Resolver(() => Customer)
 export class CustomersResolver {
-  constructor(private readonly customersService: CustomersService) {}
+  constructor(private readonly customersService: CustomersService) { }
 
   @Mutation(() => Customer)
-  createCustomer(@Args('createCustomerInput') createCustomerInput: CreateCustomerInput) {
+  createCustomer(
+    @Args('createCustomerInput') createCustomerInput: CreateCustomerInput,
+  ) {
     return this.customersService.create(createCustomerInput);
   }
 
@@ -24,12 +26,20 @@ export class CustomersResolver {
   }
 
   @Mutation(() => Customer)
-  updateCustomer(@Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput) {
-    return this.customersService.update(updateCustomerInput.id, updateCustomerInput);
+  updateCustomer(
+    @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput,
+  ) {
+    return this.customersService.update(
+      updateCustomerInput.id,
+      updateCustomerInput,
+    );
   }
 
-  @Mutation(() => Customer)
-  removeCustomer(@Args('id', { type: () => Int }) id: number) {
-    return this.customersService.remove(id);
+  @Mutation(() => String)
+  async removeCustomer(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<string> {
+    await this.customersService.remove(id);
+    return `Customer with ID ${id} has been successfully deleted.`;
   }
 }

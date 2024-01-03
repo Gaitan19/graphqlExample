@@ -23,7 +23,7 @@ export class ProductsService {
   }
 
   async findOne(id: number): Promise<Product> {
-    return await this.productsRepository.findOne({ where: { id: id } });
+    return await this.productsRepository.findOne({ where: { id } });
   }
   async update(
     id: number,
