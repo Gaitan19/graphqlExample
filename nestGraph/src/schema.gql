@@ -18,8 +18,11 @@ input CreateInvoiceInput {
 }
 
 input CreateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  description: String
+  name: String!
+  price: Float!
+  stock: Int!
+  unitofmeasure: String!
 }
 
 input CreateSellerInput {
@@ -118,9 +121,12 @@ input UpdateInvoiceInput {
 }
 
 input UpdateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  description: String
   id: Int!
+  name: String
+  price: Float
+  stock: Int
+  unitofmeasure: String
 }
 
 input UpdateSellerInput {

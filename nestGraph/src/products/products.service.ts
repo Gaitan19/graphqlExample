@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,23 +9,33 @@ import { Product } from './entities/product.entity';
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
-    private invoicesRepository: Repository<Product>,
-  ) {}
+    private productsRepository: Repository<Product>,
+  ) { }
 
-  create(createProductInput: CreateProductInput) {
-    return 'This action adds a new product';
+  async create(createProductInput: CreateProductInput): Promise<Product> {
+    const product = this.productsRepository.create(createProductInput);
+
+    return await this.productsRepository.save(product);
   }
 
   findAll() {
-    return this.invoicesRepository.find();
+    return this.productsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: number): Promise<Product> {
+    return await this.productsRepository.findOne({ where: { id: id } });
   }
+  async update(
+    id: number,
+    updateProductInput: UpdateProductInput,
+  ): Promise<Product> {
+    const result = await this.productsRepository.update(id, updateProductInput);
 
-  update(id: number, updateProductInput: UpdateProductInput) {
-    return `This action updates a #${id} product`;
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
+
+    return await this.productsRepository.findOne({ where: { id } });
   }
 
   remove(id: number) {

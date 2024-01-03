@@ -16,7 +16,7 @@ import { SellersModule } from './sellers/sellers.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
+      port: 3307,
       username: 'root',
       password: 'admin',
       database: 'nestgraph',
@@ -37,4 +37,4 @@ import { SellersModule } from './sellers/sellers.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

@@ -10,7 +10,7 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
+  @Field(() => String)
   @Column()
   name: string;
 
@@ -18,7 +18,7 @@ export class Product {
   @Column({ default: '', nullable: true })
   description: string;
 
-  @Field()
+  @Field(() => String)
   @Column({ default: '', nullable: true })
   unitofmeasure: string;
 
