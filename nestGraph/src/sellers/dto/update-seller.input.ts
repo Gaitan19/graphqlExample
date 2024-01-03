@@ -5,4 +5,10 @@ import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 export class UpdateSellerInput extends PartialType(CreateSellerInput) {
   @Field(() => Int)
   id: number;
+
+  @Field(() => String, { nullable: true })
+  name?: string;
+
+  @Field(() => String, { nullable: true })
+  lastName?: string;
 }

@@ -38,7 +38,7 @@ export class CustomersService {
       where: { id },
     });
     if (!customerToDelete) {
-      throw new NotFoundException(`Product with ID ${id} not found`);
+      throw new NotFoundException(`Customer with ID ${id} not found`);
     }
 
     await this.customersRepository.remove(customerToDelete);

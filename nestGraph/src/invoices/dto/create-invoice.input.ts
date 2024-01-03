@@ -1,7 +1,16 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Int, Field, Float } from '@nestjs/graphql';
 
 @InputType()
 export class CreateInvoiceInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => Int)
+  customerId: number;
+
+  @Field(() => Int)
+  sellerId: number;
+
+  @Field()
+  date: Date;
+
+  @Field(() => Float)
+  total: number;
 }

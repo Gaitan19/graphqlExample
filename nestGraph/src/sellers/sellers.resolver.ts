@@ -6,10 +6,12 @@ import { UpdateSellerInput } from './dto/update-seller.input';
 
 @Resolver(() => Seller)
 export class SellersResolver {
-  constructor(private readonly sellersService: SellersService) {}
+  constructor(private readonly sellersService: SellersService) { }
 
   @Mutation(() => Seller)
-  createSeller(@Args('createSellerInput') createSellerInput: CreateSellerInput) {
+  createSeller(
+    @Args('createSellerInput') createSellerInput: CreateSellerInput,
+  ) {
     return this.sellersService.create(createSellerInput);
   }
 
@@ -24,12 +26,17 @@ export class SellersResolver {
   }
 
   @Mutation(() => Seller)
-  updateSeller(@Args('updateSellerInput') updateSellerInput: UpdateSellerInput) {
+  updateSeller(
+    @Args('updateSellerInput') updateSellerInput: UpdateSellerInput,
+  ) {
     return this.sellersService.update(updateSellerInput.id, updateSellerInput);
   }
 
-  @Mutation(() => Seller)
-  removeSeller(@Args('id', { type: () => Int }) id: number) {
-    return this.sellersService.remove(id);
+  @Mutation(() => String)
+  async removeSeller(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<string> {
+    await this.sellersService.remove(id);
+    return `Seller with ID ${id} has been successfully deleted.`;
   }
 }

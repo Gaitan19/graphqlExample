@@ -15,8 +15,10 @@ input CreateInvoiceDetailInput {
 }
 
 input CreateInvoiceInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  customerId: Int!
+  date: DateTime!
+  sellerId: Int!
+  total: Float!
 }
 
 input CreateProductInput {
@@ -28,8 +30,8 @@ input CreateProductInput {
 }
 
 input CreateSellerInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  lastName: String!
+  name: String!
 }
 
 type Customer {
@@ -47,8 +49,10 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Invoice {
+  customer: Customer!
   date: DateTime!
-  exampleField: Int!
+  id: Int!
+  seller: Seller!
   total: Float!
 }
 
@@ -68,7 +72,7 @@ type Mutation {
   removeInvoice(id: Int!): Invoice!
   removeInvoiceDetail(id: Int!): InvoiceDetail!
   removeProduct(id: Int!): String!
-  removeSeller(id: Int!): Seller!
+  removeSeller(id: Int!): String!
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
   updateInvoice(updateInvoiceInput: UpdateInvoiceInput!): Invoice!
   updateInvoiceDetail(updateInvoiceDetailInput: UpdateInvoiceDetailInput!): InvoiceDetail!
@@ -99,7 +103,7 @@ type Query {
 }
 
 type Seller {
-  exampleField: Int!
+  id: Int!
   lastName: String!
   name: String!
 }
@@ -119,9 +123,11 @@ input UpdateInvoiceDetailInput {
 }
 
 input UpdateInvoiceInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  customerId: Int
+  date: DateTime
   id: Int!
+  sellerId: Int
+  total: Float
 }
 
 input UpdateProductInput {
@@ -134,7 +140,7 @@ input UpdateProductInput {
 }
 
 input UpdateSellerInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
+  lastName: String
+  name: String
 }

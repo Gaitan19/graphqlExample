@@ -1,26 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSellerInput } from './dto/create-seller.input';
 import { UpdateSellerInput } from './dto/update-seller.input';
+import { Seller } from './entities/seller.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SellersService {
-  create(createSellerInput: CreateSellerInput) {
-    return 'This action adds a new seller';
+  constructor(
+    @InjectRepository(Seller)
+    private sellersRepository: Repository<Seller>,
+  ) { }
+
+  async create(createSellerInput: CreateSellerInput) {
+    const newSeller = this.sellersRepository.create(createSellerInput);
+    return await this.sellersRepository.save(newSeller);
   }
 
-  findAll() {
-    return `This action returns all sellers`;
+  async findAll(): Promise<Seller[]> {
+    return await this.sellersRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} seller`;
+  async findOne(id: number): Promise<Seller> {
+    return await this.sellersRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateSellerInput: UpdateSellerInput) {
-    return `This action updates a #${id} seller`;
+  async update(
+    id: number,
+    updateSellerInput: UpdateSellerInput,
+  ): Promise<Seller> {
+    await this.sellersRepository.update(id, updateSellerInput);
+    return await this.sellersRepository.findOne({ where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} seller`;
+  async remove(id: number): Promise<void> {
+    const sellerToDelete = await this.sellersRepository.findOne({
+      where: { id },
+    });
+    if (!sellerToDelete) {
+      throw new NotFoundException(`Seller with ID ${id} not found`);
+    }
+
+    await this.sellersRepository.remove(sellerToDelete);
   }
 }

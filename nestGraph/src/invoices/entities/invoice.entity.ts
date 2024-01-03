@@ -16,7 +16,7 @@ import {
 export class Invoice {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
-  exampleField: number;
+  id: number;
 
   @Field()
   @Column()
@@ -32,9 +32,11 @@ export class Invoice {
   })
   total: number;
 
+  @Field(() => Seller)
   @ManyToOne(() => Seller, (seller) => seller.invoice)
   seller: Seller;
 
+  @Field(() => Customer)
   @ManyToOne(() => Customer, (customer) => customer.invoice)
   customer: Customer;
 

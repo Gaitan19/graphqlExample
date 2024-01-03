@@ -7,13 +7,13 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 export class Seller {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
-  exampleField: number;
+  id: number;
 
-  @Field()
+  @Field(() => String)
   @Column()
   name: string;
 
-  @Field()
+  @Field(() => String)
   @Column()
   lastName: string;
 
