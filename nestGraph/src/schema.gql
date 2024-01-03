@@ -65,7 +65,7 @@ type Mutation {
   removeCustomer(id: Int!): Customer!
   removeInvoice(id: Int!): Invoice!
   removeInvoiceDetail(id: Int!): InvoiceDetail!
-  removeProduct(id: Int!): Product!
+  removeProduct(id: Int!): String!
   removeSeller(id: Int!): Seller!
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
   updateInvoice(updateInvoiceInput: UpdateInvoiceInput!): Invoice!

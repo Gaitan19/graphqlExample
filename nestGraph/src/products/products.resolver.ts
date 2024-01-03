@@ -6,7 +6,7 @@ import { UpdateProductInput } from './dto/update-product.input';
 
 @Resolver(() => Product)
 export class ProductsResolver {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) { }
 
   @Mutation(() => Product)
   createProduct(
@@ -35,8 +35,11 @@ export class ProductsResolver {
     );
   }
 
-  @Mutation(() => Product)
-  removeProduct(@Args('id', { type: () => Int }) id: number) {
-    return this.productsService.remove(id);
+  @Mutation(() => String)
+  async removeProduct(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<string> {
+    await this.productsService.remove(id);
+    return `Product with ID ${id} has been successfully deleted.`;
   }
 }
