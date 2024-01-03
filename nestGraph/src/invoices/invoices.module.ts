@@ -24,4 +24,4 @@ import { CustomersService } from 'src/customers/customers.service';
 
   exports: [TypeOrmModule],
 })
-export class InvoicesModule { }
+export class InvoicesModule {}

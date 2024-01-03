@@ -6,7 +6,7 @@ import { UpdateCustomerInput } from './dto/update-customer.input';
 
 @Resolver(() => Customer)
 export class CustomersResolver {
-  constructor(private readonly customersService: CustomersService) { }
+  constructor(private readonly customersService: CustomersService) {}
 
   @Mutation(() => Customer)
   createCustomer(

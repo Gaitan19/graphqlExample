@@ -9,7 +9,10 @@ export class InvoiceDetailsResolver {
   constructor(private readonly invoiceDetailsService: InvoiceDetailsService) {}
 
   @Mutation(() => InvoiceDetail)
-  createInvoiceDetail(@Args('createInvoiceDetailInput') createInvoiceDetailInput: CreateInvoiceDetailInput) {
+  createInvoiceDetail(
+    @Args('createInvoiceDetailInput')
+    createInvoiceDetailInput: CreateInvoiceDetailInput,
+  ) {
     return this.invoiceDetailsService.create(createInvoiceDetailInput);
   }
 
@@ -24,12 +27,21 @@ export class InvoiceDetailsResolver {
   }
 
   @Mutation(() => InvoiceDetail)
-  updateInvoiceDetail(@Args('updateInvoiceDetailInput') updateInvoiceDetailInput: UpdateInvoiceDetailInput) {
-    return this.invoiceDetailsService.update(updateInvoiceDetailInput.id, updateInvoiceDetailInput);
+  updateInvoiceDetail(
+    @Args('updateInvoiceDetailInput')
+    updateInvoiceDetailInput: UpdateInvoiceDetailInput,
+  ) {
+    return this.invoiceDetailsService.update(
+      updateInvoiceDetailInput.id,
+      updateInvoiceDetailInput,
+    );
   }
 
-  @Mutation(() => InvoiceDetail)
-  removeInvoiceDetail(@Args('id', { type: () => Int }) id: number) {
-    return this.invoiceDetailsService.remove(id);
+  @Mutation(() => String)
+  async removeInvoiceDetail(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<string> {
+    await this.invoiceDetailsService.remove(id);
+    return `InvoiceDetail with ID ${id} has been successfully deleted.`;
   }
 }

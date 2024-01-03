@@ -10,8 +10,10 @@ input CreateCustomerInput {
 }
 
 input CreateInvoiceDetailInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  invoiceId: Int!
+  price: Float!
+  productId: Int!
+  quantity: Int!
 }
 
 input CreateInvoiceInput {
@@ -57,9 +59,11 @@ type Invoice {
 }
 
 type InvoiceDetail {
-  exampleField: Int!
+  id: Int!
+  invoice: Invoice!
   price: Float!
-  quantity: Float!
+  product: Product!
+  quantity: Int!
 }
 
 type Mutation {
@@ -69,8 +73,8 @@ type Mutation {
   createProduct(createProductInput: CreateProductInput!): Product!
   createSeller(createSellerInput: CreateSellerInput!): Seller!
   removeCustomer(id: Int!): String!
-  removeInvoice(id: Int!): Invoice!
-  removeInvoiceDetail(id: Int!): InvoiceDetail!
+  removeInvoice(id: Int!): String!
+  removeInvoiceDetail(id: Int!): String!
   removeProduct(id: Int!): String!
   removeSeller(id: Int!): String!
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
@@ -117,9 +121,11 @@ input UpdateCustomerInput {
 }
 
 input UpdateInvoiceDetailInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
+  invoiceId: Int
+  price: Float
+  productId: Int
+  quantity: Int
 }
 
 input UpdateInvoiceInput {

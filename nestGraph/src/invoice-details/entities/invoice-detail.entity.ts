@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import { Invoice } from 'src/invoices/entities/invoice.entity';
 import { Product } from 'src/products/entities/product.entity';
 import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
@@ -9,13 +9,13 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 export class InvoiceDetail {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
-  exampleField: number;
+  id: number;
 
-  @Field()
+  @Field(() => Int)
   @Column()
   quantity: number;
 
-  @Field()
+  @Field(() => Float)
   @Column({
     type: 'decimal',
     precision: 10,
@@ -24,9 +24,11 @@ export class InvoiceDetail {
   })
   price: number;
 
+  @Field(() => Product)
   @ManyToOne(() => Product, (product) => product.invoiceDetails)
   product: Product;
 
+  @Field(() => Invoice)
   @ManyToOne(() => Invoice, (invoice) => invoice.invoiceDetails)
   invoice: Invoice;
 }

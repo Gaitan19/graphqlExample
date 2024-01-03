@@ -9,7 +9,9 @@ export class InvoicesResolver {
   constructor(private readonly invoicesService: InvoicesService) {}
 
   @Mutation(() => Invoice)
-  createInvoice(@Args('createInvoiceInput') createInvoiceInput: CreateInvoiceInput) {
+  createInvoice(
+    @Args('createInvoiceInput') createInvoiceInput: CreateInvoiceInput,
+  ) {
     return this.invoicesService.create(createInvoiceInput);
   }
 
@@ -24,12 +26,20 @@ export class InvoicesResolver {
   }
 
   @Mutation(() => Invoice)
-  updateInvoice(@Args('updateInvoiceInput') updateInvoiceInput: UpdateInvoiceInput) {
-    return this.invoicesService.update(updateInvoiceInput.id, updateInvoiceInput);
+  updateInvoice(
+    @Args('updateInvoiceInput') updateInvoiceInput: UpdateInvoiceInput,
+  ) {
+    return this.invoicesService.update(
+      updateInvoiceInput.id,
+      updateInvoiceInput,
+    );
   }
 
-  @Mutation(() => Invoice)
-  removeInvoice(@Args('id', { type: () => Int }) id: number) {
-    return this.invoicesService.remove(id);
+  @Mutation(() => String)
+  async removeInvoice(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<string> {
+    await this.invoicesService.remove(id);
+    return `Invoice with ID ${id} has been successfully deleted.`;
   }
 }

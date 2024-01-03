@@ -10,7 +10,7 @@ export class CustomersService {
   constructor(
     @InjectRepository(Customer)
     private customersRepository: Repository<Customer>,
-  ) { }
+  ) {}
 
   async create(createCustomerInput: CreateCustomerInput): Promise<Customer> {
     const newCustomer = this.customersRepository.create(createCustomerInput);
