@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
+import { InvoicesController } from './invoices.controller';
+import { InvoicesService } from './invoices.service';
 import { ProductsModule } from './products/products.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomersModule } from './customers/customers.module';
-import { InvoicesModule } from './invoices/invoices.module';
 import { InvoiceDetailsModule } from './invoice-details/invoice-details.module';
 import { SellersModule } from './sellers/sellers.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -17,15 +15,9 @@ import { SellersModule } from './sellers/sellers.module';
       port: 3306,
       username: 'root',
       password: 'admin',
-      database: 'nestgraph',
+      database: 'nestdb',
       autoLoadEntities: true,
       synchronize: true,
-    }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true,
-      installSubscriptionHandlers: true,
     }),
     ProductsModule,
     CustomersModule,
@@ -33,7 +25,7 @@ import { SellersModule } from './sellers/sellers.module';
     InvoiceDetailsModule,
     SellersModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [InvoicesController],
+  providers: [InvoicesService],
 })
-export class AppModule {}
+export class InvoicesModule {}

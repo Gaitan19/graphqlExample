@@ -112,6 +112,10 @@ type Seller {
   name: String!
 }
 
+type Subscription {
+  productAdded: Product!
+}
+
 input UpdateCustomerInput {
   address: String
   id: Int!
