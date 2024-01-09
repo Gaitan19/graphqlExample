@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { HttpService } from '@nestjs/axios';
@@ -7,11 +12,16 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { Product } from './entities/product.entity';
 import { error } from 'console';
 import { catchError, firstValueFrom } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
+import { BaseEntity } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
   private logger;
-  constructor(private readonly httpService: HttpService) {
+  constructor(
+    private readonly httpService: HttpService,
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
+  ) {
     this.logger = new Logger();
   }
 
@@ -26,7 +36,17 @@ export class ProductsService {
           }),
         ),
     );
+    const sendResponse = this.client.send<{ type: string; data: BaseEntity }>(
+      'new_created',
+      {
+        type: 'product',
+        data: data,
+      },
+    );
 
+    sendResponse.subscribe(async (response) => {
+      console.log('Respuesta del microservicio:', response);
+    });
     return data;
   }
 

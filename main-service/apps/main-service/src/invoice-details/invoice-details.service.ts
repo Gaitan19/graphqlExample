@@ -1,14 +1,24 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { CreateInvoiceDetailDto } from './dto/create-invoice-detail.dto';
 import { UpdateInvoiceDetailDto } from './dto/update-invoice-detail.dto';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { HttpService } from '@nestjs/axios';
+import { ClientProxy } from '@nestjs/microservices';
+import { BaseEntity } from 'typeorm';
 
 @Injectable()
 export class InvoiceDetailsService {
   private logger;
-  constructor(private readonly httpService: HttpService) {
+  constructor(
+    private readonly httpService: HttpService,
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
+  ) {
     this.logger = new Logger();
   }
 
@@ -23,6 +33,18 @@ export class InvoiceDetailsService {
           }),
         ),
     );
+
+    const sendResponse = this.client.send<{ type: string; data: BaseEntity }>(
+      'new_created',
+      {
+        type: 'invoiceDetails',
+        data: data,
+      },
+    );
+
+    sendResponse.subscribe(async (response) => {
+      console.log('Respuesta del microservicio:', response);
+    });
 
     return data;
   }

@@ -2,9 +2,15 @@ import { Module } from '@nestjs/common';
 import { SellersService } from './sellers.service';
 import { SellersController } from './sellers.controller';
 import { HttpModule } from '@nestjs/axios';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
-  imports: [HttpModule],
+  imports: [
+    HttpModule,
+    ClientsModule.register([
+      { name: 'MAIL_SERVICE', transport: Transport.TCP },
+    ]),
+  ],
   controllers: [SellersController],
   providers: [SellersService],
 })
