@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -17,17 +17,16 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const { rolId, ...validDto } = createUserDto;
+    const { rolsId, ...validDto } = createUserDto;
 
-    const rol = await this.rolsRepository.findOneBy({ id: rolId });
-
-    if (!rol) {
+    const rols = await this.rolsRepository.findBy({ id: In(rolsId) });
+    if (rols.length < rolsId.length) {
       throw new BadRequestException('Rol not found');
     }
 
     const user = this.usersRepository.create({
       ...validDto,
-      rol,
+      rols,
     });
 
     return await this.usersRepository.save(user);
@@ -36,7 +35,7 @@ export class UsersService {
   async findAll() {
     return await this.usersRepository.find({
       relations: {
-        rol: true,
+        rols: true,
       },
     });
   }
@@ -45,32 +44,34 @@ export class UsersService {
     return await this.usersRepository.findOne({
       where: { id },
       relations: {
-        rol: true,
+        rols: true,
       },
     });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const { rolId, ...validDto } = updateUserDto;
+    const { rolsId, ...validDto } = updateUserDto;
 
     const user = await this.usersRepository.findOneBy({ id });
     if (!user) {
       throw new BadRequestException('User not found');
     }
 
-    let rol;
-    if (rolId) {
-      rol = await this.rolsRepository.findOneBy({ id: rolId });
-      if (!rol) {
+    let rols;
+    if (rolsId) {
+      rols = await this.rolsRepository.findBy({ id: In(rolsId) });
+      if (rols.length < rolsId.length) {
         throw new BadRequestException('Rol not found');
       }
     }
 
-    return await this.usersRepository.save({
+    const updatedUser = await this.usersRepository.save({
       ...user,
       ...validDto,
-      rol,
+      rols,
     });
+
+    return await updatedUser;
   }
 
   async remove(id: number) {

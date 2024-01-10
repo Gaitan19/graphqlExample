@@ -19,11 +19,14 @@ export class RolsService {
   }
 
   async findAll() {
-    return await this.rolsRepository.find();
+    return await this.rolsRepository.find({ relations: { users: true } });
   }
 
   async findOne(id: number) {
-    const rol = await this.rolsRepository.findOneBy({ id });
+    const rol = await this.rolsRepository.findOne({
+      where: { id },
+      relations: { users: true },
+    });
     if (!rol) {
       throw new NotFoundException('Rol not found');
     }

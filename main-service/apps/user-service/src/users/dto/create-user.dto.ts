@@ -1,9 +1,9 @@
-import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsArray, IsPositive, IsString } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNumber()
+  @IsArray()
   @IsPositive()
-  rolId: number;
+  rolsId: number[];
 
   @IsString()
   email: string;
