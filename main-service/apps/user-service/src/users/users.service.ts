@@ -53,7 +53,7 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string) {
-    const user = await this.usersRepository.findOne({ where: { email } });
+    const user = await this.usersRepository.findOneBy({ email });
     return user;
   }
 

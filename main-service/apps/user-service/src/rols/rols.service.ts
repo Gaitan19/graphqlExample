@@ -14,7 +14,7 @@ export class RolsService {
   constructor(
     @InjectRepository(Rol)
     private rolsRepository: Repository<Rol>,
-  ) { }
+  ) {}
 
   async create(createRolDto: CreateRolDto) {
     const rol = this.rolsRepository.create(createRolDto);

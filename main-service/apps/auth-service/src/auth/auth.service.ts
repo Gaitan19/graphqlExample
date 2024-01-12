@@ -27,10 +27,11 @@ export class AuthService {
     async register({ password, email, rolsId }: RegisterDto) {
 
         const response = await firstValueFrom(
-            this.httpService.post(`http://localhost:4001/users/email`, email)
+            this.httpService.post(`http://localhost:4001/users/email`, {email})
         );
 
         const user = response.data;
+        console.log('email :>> ', email);
 
         if (user) {
             throw new BadRequestException('Email already exists');
@@ -54,7 +55,7 @@ export class AuthService {
             email,
             password: hashedPassword,
         }
-        console.log('newUser :>> ', newUser);
+        
 
         const userResponse = await firstValueFrom(
             this.httpService.post(`http://localhost:4001/users`, newUser).pipe(
@@ -64,10 +65,6 @@ export class AuthService {
                 }),
             ),
         );
-
-        console.log('userResponse.data :>> ', userResponse.data);
-
-
 
 
         return {

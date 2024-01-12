@@ -10,6 +10,7 @@ import { EmailLogsModule } from './email-logs/email-logs.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UsersModule } from './users/users.module';
 import { RolsModule } from './rols/rols.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RolsModule } from './rols/rols.module';
     EmailLogsModule,
     UsersModule,
     RolsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
