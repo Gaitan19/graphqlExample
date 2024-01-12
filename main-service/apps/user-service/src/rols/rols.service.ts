@@ -1,21 +1,33 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateRolDto } from './dto/create-rol.dto';
 import { UpdateRolDto } from './dto/update-rol.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Rol } from './entities/rol.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 @Injectable()
 export class RolsService {
   constructor(
     @InjectRepository(Rol)
     private rolsRepository: Repository<Rol>,
-  ) {}
+  ) { }
 
   async create(createRolDto: CreateRolDto) {
     const rol = this.rolsRepository.create(createRolDto);
 
     return await this.rolsRepository.save(rol);
+  }
+
+  async findRolls(rolsId: number[]) {
+    const rols = await this.rolsRepository.findBy({ id: In(rolsId) });
+    if (rols.length < rolsId.length) {
+      throw new BadRequestException('Rol not found');
+    }
+    return rols;
   }
 
   async findAll() {

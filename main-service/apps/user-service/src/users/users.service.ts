@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Rol } from './../rols/entities/rol.entity';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,7 +15,7 @@ export class UsersService {
 
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
     const { rolsId, ...validDto } = createUserDto;
@@ -30,6 +31,8 @@ export class UsersService {
     });
 
     return await this.usersRepository.save(user);
+
+
   }
 
   async findAll() {
@@ -47,6 +50,11 @@ export class UsersService {
         rols: true,
       },
     });
+  }
+
+  async findOneByEmail(email: string) {
+    const user = await this.usersRepository.findOne({ where: { email } });
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

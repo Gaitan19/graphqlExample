@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
+      port: 3307,
       username: 'root',
       password: 'admin',
       database: 'usersBD',
@@ -23,4 +23,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   controllers: [UserServiceController],
   providers: [UserServiceService],
 })
-export class UserServiceModule {}
+export class UserServiceModule { }

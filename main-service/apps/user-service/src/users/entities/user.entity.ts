@@ -1,18 +1,12 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { Rol } from '../../rols/entities/rol.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @Column({ primary: true, generated: true })
   id: number;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   email: string;
 
   @Column()
