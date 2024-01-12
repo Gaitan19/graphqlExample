@@ -31,7 +31,7 @@ export class AuthService {
         );
 
         const user = response.data;
-        console.log('email :>> ', email);
+        
 
         if (user) {
             throw new BadRequestException('Email already exists');
@@ -74,10 +74,11 @@ export class AuthService {
 
     async login({ email, password }: LoginDto) {
         const response = await firstValueFrom(
-            this.httpService.post(`http://localhost:4001/users/email`, email)
+            this.httpService.post(`http://localhost:4001/users/email`, {email})
         );
 
         const user = response.data;
+        console.log('user :>> ', user);
 
         if (!user) {
             throw new UnauthorizedException('Invalid email');
