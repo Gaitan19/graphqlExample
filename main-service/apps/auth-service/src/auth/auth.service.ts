@@ -78,7 +78,6 @@ export class AuthService {
         );
 
         const user = response.data;
-        console.log('user :>> ', user);
 
         if (!user) {
             throw new UnauthorizedException('Invalid email');
