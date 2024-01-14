@@ -27,11 +27,11 @@ export class AuthService {
     async register({ password, email, rolsId }: RegisterDto) {
 
         const response = await firstValueFrom(
-            this.httpService.post(`http://localhost:4001/users/email`, {email})
+            this.httpService.post(`http://localhost:4001/users/email`, { email })
         );
 
         const user = response.data;
-        
+
 
         if (user) {
             throw new BadRequestException('Email already exists');
@@ -55,7 +55,7 @@ export class AuthService {
             email,
             password: hashedPassword,
         }
-        
+
 
         const userResponse = await firstValueFrom(
             this.httpService.post(`http://localhost:4001/users`, newUser).pipe(
@@ -74,7 +74,7 @@ export class AuthService {
 
     async login({ email, password }: LoginDto) {
         const response = await firstValueFrom(
-            this.httpService.post(`http://localhost:4001/users/email`, {email})
+            this.httpService.post(`http://localhost:4001/users/email`, { email })
         );
 
         const user = response.data;
@@ -89,13 +89,15 @@ export class AuthService {
             throw new UnauthorizedException('Invalid password');
         }
 
-        const payload = { email: user.email };
+        const userRoleNames = user.rols.map(role => role.rolName);
+        const payload = { email: user.email, rols: userRoleNames };
 
         const token = await this.jwtService.signAsync(payload);
 
         return {
             token: token,
             email: user.email,
+
         };
     }
 }
