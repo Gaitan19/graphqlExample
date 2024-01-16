@@ -6,6 +6,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
+import { Permission } from '../permissions/entities/permission.entity';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +16,8 @@ export class UsersService {
 
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(Permission)
+    private permissionsRepository: Repository<Permission>,
   ) { }
 
   async create(createUserDto: CreateUserDto) {
@@ -37,9 +40,7 @@ export class UsersService {
 
   async findAll() {
     return await this.usersRepository.find({
-      relations: {
-        rols: true,
-      },
+      relations: ['rols', "rols.permissions"],
     });
   }
 
@@ -54,9 +55,7 @@ export class UsersService {
 
   async findOneByEmail(email: string) {
     const user = await this.usersRepository.findOne({
-      where: { email }, relations: {
-        rols: true
-      }
+      where: { email }, relations: ['rols', "rols.permissions"],
     });
     console.log('user :>> ', user);
     return user;

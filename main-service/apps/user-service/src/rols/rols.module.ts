@@ -10,4 +10,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   providers: [RolsService],
   exports: [TypeOrmModule],
 })
-export class RolsModule {}
+export class RolsModule { }

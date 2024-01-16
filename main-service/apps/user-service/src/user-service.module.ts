@@ -4,6 +4,7 @@ import { UserServiceService } from './user-service.service';
 import { UsersModule } from './users/users.module';
 import { RolsModule } from './rols/rols.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     UsersModule,
     RolsModule,
+    PermissionsModule,
   ],
   controllers: [UserServiceController],
   providers: [UserServiceService],

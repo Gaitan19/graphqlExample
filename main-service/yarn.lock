@@ -2686,6 +2686,11 @@ function-bind@^1.1.2:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.2.tgz#2c02d864d97f3ea6c8830c464cbd11ab6eab7a1c"
   integrity sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==
 
+function-name@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/function-name/-/function-name-2.0.0.tgz#5f5e52cb3eef22e4e753834537f5f83d3b8b0fce"
+  integrity sha512-u3Br8VSRdXvwMI0116+poY5+8bmN8J7ryb5xWul5TeTMIDggQSe/RDeVVZDXaFxlr8dLC3rwRUZpR5Sqfg0TXA==
+
 generate-function@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/generate-function/-/generate-function-2.3.1.tgz#f069617690c10c868e73b8465746764f97c3479f"
